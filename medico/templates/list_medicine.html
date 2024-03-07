@@ -1,0 +1,34 @@
+{% extends "index.html" %}
+{% block content %}
+  <h2>Medicine List</h2>
+
+  <form method="get" action="{% url 'medicinelist' %}">
+    <input type="text" name="q" placeholder="Search medicines" value="{{ query }}">
+    <button type="submit">Search</button>
+  </form>
+
+  {% if medicines %}
+  <table border="1">
+    <thead>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Edit/Delete</th>
+    </thead>
+    <tbody>
+      {% for medicine in medicines %}
+        <tr>
+          <td>{{ medicine.name }}</td>
+          <td>{{ medicine.description }}</td>
+          <td>{{ medicine.price }}</td>
+          <td> <a href="{% url 'medicineedit' medicine.id %}">Edit</a> / <a href="{% url 'medicinedelete' medicine.id %}">Delete</a> </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p>No medicines available.</p>
+{% endif %}
+
+  
+{% endblock %}
